@@ -26,11 +26,13 @@ yarn add react-native-braintree-dropin-turbo
 ### iOS Setup
 
 1. Install pods:
+
 ```bash
 cd ios && pod install
 ```
 
 2. Add to your `Info.plist` for Apple Pay:
+
 ```xml
 <key>com.apple.developer.in-app-payments</key>
 <array>
@@ -73,10 +75,10 @@ import BraintreeDropIn from 'react-native-braintree-dropin-turbo';
 try {
   const result = await BraintreeDropIn.show({
     clientToken: 'YOUR_CLIENT_TOKEN',
-    orderTotal: 10.00,
+    orderTotal: 10.0,
     currencyCode: 'USD',
   });
-  
+
   console.log('Payment nonce:', result.nonce);
   console.log('Device data:', result.deviceData);
   // Send result.nonce to your server
@@ -99,7 +101,7 @@ const result = await BraintreeDropIn.show({
   countryCode: 'US',
   currencyCode: 'USD',
   merchantName: 'Your Store',
-  orderTotal: 10.00,
+  orderTotal: 10.0,
 });
 ```
 
@@ -110,7 +112,7 @@ const result = await BraintreeDropIn.show({
   clientToken: 'YOUR_CLIENT_TOKEN',
   googlePay: true,
   googlePayMerchantId: 'YOUR_MERCHANT_ID',
-  orderTotal: 10.00,
+  orderTotal: 10.0,
   currencyCode: 'USD',
 });
 ```
@@ -121,7 +123,7 @@ const result = await BraintreeDropIn.show({
 const result = await BraintreeDropIn.show({
   clientToken: 'YOUR_CLIENT_TOKEN',
   threeDSecure: {
-    amount: 10.00,
+    amount: 10.0,
   },
 });
 ```
@@ -129,16 +131,13 @@ const result = await BraintreeDropIn.show({
 ### Tokenize Card Directly
 
 ```typescript
-const result = await BraintreeDropIn.tokenizeCard(
-  'YOUR_CLIENT_TOKEN',
-  {
-    number: '4111111111111111',
-    expirationMonth: '12',
-    expirationYear: '2025',
-    cvv: '123',
-    postalCode: '12345',
-  }
-);
+const result = await BraintreeDropIn.tokenizeCard('YOUR_CLIENT_TOKEN', {
+  number: '4111111111111111',
+  expirationMonth: '12',
+  expirationYear: '2025',
+  cvv: '123',
+  postalCode: '12345',
+});
 ```
 
 ### Collect Device Data
@@ -151,9 +150,8 @@ const deviceData = await BraintreeDropIn.collectDeviceData('YOUR_CLIENT_TOKEN');
 ### Fetch Most Recent Payment Method
 
 ```typescript
-const paymentMethod = await BraintreeDropIn.fetchMostRecentPaymentMethod(
-  'YOUR_CLIENT_TOKEN'
-);
+const paymentMethod =
+  await BraintreeDropIn.fetchMostRecentPaymentMethod('YOUR_CLIENT_TOKEN');
 
 if (paymentMethod) {
   console.log('Last payment:', paymentMethod.description);
@@ -168,36 +166,36 @@ Display the Braintree Drop-In UI.
 
 #### Options
 
-| Option | Type | Required | Description |
-|--------|------|----------|-------------|
-| `clientToken` | string | ✅ | Braintree client token |
-| `orderTotal` | number | ❌ | Total amount for the transaction |
-| `currencyCode` | string | ❌ | Currency code (default: 'USD') |
-| `darkTheme` | boolean | ❌ | Use dark theme (iOS only) |
-| `fontFamily` | string | ❌ | Custom font family (iOS only) |
-| `boldFontFamily` | string | ❌ | Custom bold font family (iOS only) |
-| `vaultManager` | boolean | ❌ | Enable vault manager |
-| `cardDisabled` | boolean | ❌ | Disable card payments |
-| `applePay` | boolean | ❌ | Enable Apple Pay (iOS only) |
-| `merchantIdentifier` | string | ❌ | Apple Pay merchant ID (required if applePay is true) |
-| `countryCode` | string | ❌ | Country code for Apple Pay |
-| `merchantName` | string | ❌ | Merchant name for Apple Pay |
-| `venmo` | boolean | ❌ | Enable Venmo |
-| `payPal` | boolean | ❌ | Enable PayPal |
-| `googlePay` | boolean | ❌ | Enable Google Pay (Android only) |
-| `googlePayMerchantId` | string | ❌ | Google Pay merchant ID |
-| `threeDSecure` | object | ❌ | 3D Secure configuration |
-| `threeDSecure.amount` | number | ❌ | Amount for 3D Secure verification |
+| Option                | Type    | Required | Description                                          |
+| --------------------- | ------- | -------- | ---------------------------------------------------- |
+| `clientToken`         | string  | ✅       | Braintree client token                               |
+| `orderTotal`          | number  | ❌       | Total amount for the transaction                     |
+| `currencyCode`        | string  | ❌       | Currency code (default: 'USD')                       |
+| `darkTheme`           | boolean | ❌       | Use dark theme (iOS only)                            |
+| `fontFamily`          | string  | ❌       | Custom font family (iOS only)                        |
+| `boldFontFamily`      | string  | ❌       | Custom bold font family (iOS only)                   |
+| `vaultManager`        | boolean | ❌       | Enable vault manager                                 |
+| `cardDisabled`        | boolean | ❌       | Disable card payments                                |
+| `applePay`            | boolean | ❌       | Enable Apple Pay (iOS only)                          |
+| `merchantIdentifier`  | string  | ❌       | Apple Pay merchant ID (required if applePay is true) |
+| `countryCode`         | string  | ❌       | Country code for Apple Pay                           |
+| `merchantName`        | string  | ❌       | Merchant name for Apple Pay                          |
+| `venmo`               | boolean | ❌       | Enable Venmo                                         |
+| `payPal`              | boolean | ❌       | Enable PayPal                                        |
+| `googlePay`           | boolean | ❌       | Enable Google Pay (Android only)                     |
+| `googlePayMerchantId` | string  | ❌       | Google Pay merchant ID                               |
+| `threeDSecure`        | object  | ❌       | 3D Secure configuration                              |
+| `threeDSecure.amount` | number  | ❌       | Amount for 3D Secure verification                    |
 
 #### Returns
 
 ```typescript
 interface PaymentResult {
-  nonce: string;          // Payment method nonce
-  type: string;           // Payment method type
-  description: string;    // Payment method description
-  isDefault: boolean;     // Is default payment method
-  deviceData: string;     // Device data for fraud detection
+  nonce: string; // Payment method nonce
+  type: string; // Payment method type
+  description: string; // Payment method description
+  isDefault: boolean; // Is default payment method
+  deviceData: string; // Device data for fraud detection
 }
 ```
 
@@ -212,7 +210,7 @@ interface CardInfo {
   expirationYear?: string;
   cvv: string;
   postalCode?: string;
-  onlyCVV?: boolean;  // If true, only CVV is required
+  onlyCVV?: boolean; // If true, only CVV is required
 }
 ```
 
@@ -268,4 +266,4 @@ MIT
 
 ## Support
 
-For issues and feature requests, please visit the [GitHub repository](https://github.com/yourusername/react-native-braintree-dropin-turbo).
+For issues and feature requests, please visit the [GitHub repository](https://github.com/aveekshan/react-native-braintree-dropin-turbo).
