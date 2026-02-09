@@ -8,7 +8,7 @@ yarn-error.log
 
 # TypeScript
 *.tsbuildinfo
-lib/
+# lib/
 
 # iOS
 ios/build/
