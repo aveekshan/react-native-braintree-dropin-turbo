@@ -1,83 +1,67 @@
 buildscript {
-    ext.safeExtGet = {prop, fallback ->
-        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+  ext.BraintreeDropinTurbo = [
+    kotlinVersion: "2.0.21",
+    minSdkVersion: 24,
+    compileSdkVersion: 36,
+    targetSdkVersion: 36
+  ]
+
+  ext.getExtOrDefault = { prop ->
+    if (rootProject.ext.has(prop)) {
+      return rootProject.ext.get(prop)
     }
 
-    repositories {
-        google()
-        mavenCentral()
-    }
+    return BraintreeDropinTurbo[prop]
+  }
 
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.4.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
-    }
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
 }
+
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
-def isNewArchitectureEnabled() {
-    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
-}
+apply plugin: "com.facebook.react"
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 33)
-    
-    namespace "com.braintreedroptinturbo"
+  namespace "com.braintreedropinturbo"
 
-    defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 21)
-        targetSdkVersion safeExtGet('targetSdkVersion', 33)
-        buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString())
+  compileSdkVersion getExtOrDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrDefault("minSdkVersion")
+    targetSdkVersion getExtOrDefault("targetSdkVersion")
+  }
+
+  buildFeatures {
+    buildConfig true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
     }
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
+  lint {
+    disable "GradleCompatible"
+  }
 
-    lintOptions {
-        disable "GradleCompatible"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-
-    sourceSets {
-        main {
-            if (isNewArchitectureEnabled()) {
-                java.srcDirs += ["src/newarch"]
-            } else {
-                java.srcDirs += ["src/oldarch"]
-            }
-        }
-    }
-}
-
-repositories {
-    mavenCentral()
-    google()
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-    implementation "com.facebook.react:react-native:+"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.21"
-    
-    // Braintree
-    implementation 'com.braintreepayments.api:drop-in:6.16.0'
-    implementation 'com.braintreepayments.api:card:4.45.0'
-    implementation 'com.braintreepayments.api:data-collector:4.45.0'
-    implementation 'com.braintreepayments.api:google-pay:4.45.0'
-    implementation 'com.braintreepayments.api:venmo:4.45.0'
-
-    // Google Pay
-    implementation 'com.google.android.gms:play-services-wallet:19.2.1'
+  implementation "com.facebook.react:react-android"
 }
