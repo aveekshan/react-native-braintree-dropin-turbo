@@ -71,10 +71,13 @@ dependencies {
     implementation "com.facebook.react:react-native:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.21"
     
-    // Braintree Dependencies - Latest versions
+    // Braintree
     implementation 'com.braintreepayments.api:drop-in:6.16.0'
     implementation 'com.braintreepayments.api:card:4.45.0'
     implementation 'com.braintreepayments.api:data-collector:4.45.0'
     implementation 'com.braintreepayments.api:google-pay:4.45.0'
     implementation 'com.braintreepayments.api:venmo:4.45.0'
+
+    // Google Pay
+    implementation 'com.google.android.gms:play-services-wallet:19.2.1'
 }

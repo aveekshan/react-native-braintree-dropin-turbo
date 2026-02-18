@@ -20,7 +20,9 @@ import BraintreeDropIn, {
 const BRAINTREE_CLIENT_TOKEN = 'sandbox_g42y39zw_348pk9cgf3bgyw2b';
 
 const App = () => {
-  const [paymentResult, setPaymentResult] = useState<PaymentResult | null>(null);
+  const [paymentResult, setPaymentResult] = useState<PaymentResult | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [deviceData, setDeviceData] = useState<string>('');
 
@@ -42,7 +44,10 @@ const App = () => {
 
       const result = await BraintreeDropIn.show(options);
       setPaymentResult(result);
-      showAlert('Success!', `Payment nonce received: ${result.nonce.substring(0, 20)}...`);
+      showAlert(
+        'Success!',
+        `Payment nonce received: ${result.nonce.substring(0, 20)}...`
+      );
       console.log('Payment Result:', result);
     } catch (error: any) {
       if (error.message === 'USER_CANCELLATION') {
@@ -96,7 +101,10 @@ const App = () => {
   // Test 3: Google Pay (Android only)
   const handleGooglePay = async () => {
     if (Platform.OS !== 'android') {
-      showAlert('Android Only', 'Google Pay is only available on Android devices');
+      showAlert(
+        'Android Only',
+        'Google Pay is only available on Android devices'
+      );
       return;
     }
 
@@ -134,10 +142,10 @@ const App = () => {
     try {
       const options: DropInOptions = {
         clientToken: BRAINTREE_CLIENT_TOKEN,
-        orderTotal: 100.00,
+        orderTotal: 100.0,
         currencyCode: 'USD',
         threeDSecure: {
-          amount: 100.00,
+          amount: 100.0,
         },
         venmo: true,
         payPal: true,
@@ -192,7 +200,9 @@ const App = () => {
   const handleCollectDeviceData = async () => {
     setLoading(true);
     try {
-      const data = await BraintreeDropIn.collectDeviceData(BRAINTREE_CLIENT_TOKEN);
+      const data = await BraintreeDropIn.collectDeviceData(
+        BRAINTREE_CLIENT_TOKEN
+      );
       setDeviceData(data);
       showAlert('Device Data Collected', `Length: ${data.length} characters`);
       console.log('Device Data:', data.substring(0, 100) + '...');
@@ -234,7 +244,7 @@ const App = () => {
       const options: DropInOptions = {
         clientToken: BRAINTREE_CLIENT_TOKEN,
         vaultManager: true,
-        orderTotal: 25.00,
+        orderTotal: 25.0,
         currencyCode: 'USD',
       };
 
@@ -299,7 +309,6 @@ const App = () => {
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
-        
         <View style={styles.header}>
           <Text style={styles.title}>Braintree Drop-In</Text>
           <Text style={styles.subtitle}>React Native Turbo Module Example</Text>
@@ -314,7 +323,7 @@ const App = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Basic Tests</Text>
-          
+
           <TestButton
             title="1. Show Drop-In UI"
             onPress={handleBasicDropIn}
@@ -342,7 +351,7 @@ const App = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Platform-Specific</Text>
-          
+
           <TestButton
             title={`5. Apple Pay (iOS Only)`}
             onPress={handleApplePay}
@@ -364,7 +373,7 @@ const App = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Advanced Features</Text>
-          
+
           <TestButton
             title="8. 3D Secure Authentication"
             onPress={handle3DSecure}
@@ -381,7 +390,7 @@ const App = () => {
         {paymentResult && (
           <View style={styles.resultContainer}>
             <Text style={styles.resultTitle}>Last Payment Result:</Text>
-            
+
             <View style={styles.resultRow}>
               <Text style={styles.resultLabel}>Type:</Text>
               <Text style={styles.resultValue}>{paymentResult.type}</Text>
@@ -389,7 +398,9 @@ const App = () => {
 
             <View style={styles.resultRow}>
               <Text style={styles.resultLabel}>Description:</Text>
-              <Text style={styles.resultValue}>{paymentResult.description}</Text>
+              <Text style={styles.resultValue}>
+                {paymentResult.description}
+              </Text>
             </View>
 
             <View style={styles.resultRow}>
@@ -432,7 +443,6 @@ const App = () => {
             ⚠️ Remember to replace BRAINTREE_CLIENT_TOKEN with your actual token
           </Text>
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );

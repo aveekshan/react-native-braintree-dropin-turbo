@@ -39,11 +39,12 @@ Pod::Spec.new do |s|
   end
 
   # Braintree Dependencies
-  # s.dependency 'Braintree', '~> 6.0'
-  # s.dependency 'BraintreeDropIn', '~> 9.0'
-  # s.dependency 'Braintree/DataCollector', '~> 6.0'
-  # s.dependency 'Braintree/ApplePay', '~> 6.0'
-  # s.dependency 'Braintree/Venmo', '~> 6.0'
+  s.dependency 'BraintreeDropIn', '9.12.2'
+  s.dependency 'Braintree/Core', '5.26.0'
+  s.dependency 'Braintree/Card', '5.26.0'
+  s.dependency 'Braintree/DataCollector', '5.26.0'
+  s.dependency 'Braintree/ApplePay', '5.26.0'
+  s.dependency 'Braintree/Venmo', '5.26.0'
   
   s.swift_version = '5.0'
 end

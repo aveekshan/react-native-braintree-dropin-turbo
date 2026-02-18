@@ -1,5 +1,9 @@
 import NativeRNBraintreeDropIn from './NativeRNBraintreeDropIn';
-import type { DropInOptions, CardInfo, PaymentResult } from './NativeRNBraintreeDropIn';
+import type {
+  DropInOptions,
+  CardInfo,
+  PaymentResult,
+} from './NativeRNBraintreeDropIn';
 
 export type { DropInOptions, CardInfo, PaymentResult };
 

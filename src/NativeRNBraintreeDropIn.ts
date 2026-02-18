@@ -42,7 +42,9 @@ export interface PaymentResult {
 
 export interface Spec extends TurboModule {
   show(options: DropInOptions): Promise<PaymentResult>;
-  fetchMostRecentPaymentMethod(clientToken: string): Promise<PaymentResult | null>;
+  fetchMostRecentPaymentMethod(
+    clientToken: string
+  ): Promise<PaymentResult | null>;
   tokenizeCard(clientToken: string, cardInfo: CardInfo): Promise<PaymentResult>;
   collectDeviceData(clientToken: string): Promise<string>;
 }
